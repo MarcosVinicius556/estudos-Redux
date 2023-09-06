@@ -19,12 +19,43 @@ export const userSlice = createSlice({
     initialState: initialState, //Estado inicial
     //E reducers que ficarão responsáveis por manipular os estados do user
     reducers: { 
+        /**
+         * Aqui é onde criaremos nossas 'funções puras',
+         * elas são também chamadas de actions, e correspondem
+         * ás ações que um reducer pode fazer, como 
+         * criar um novo usuário, buscar uma informação,
+         * deletar uma informação e por ai vai...
+         * 
+         * Essas funções sempre receberão 2 parâmetros,a state,
+         * que se refere ao estado do nosso slice e a action, que seria a 
+         * ação que deseja ser realizada além do payload, que seria os itens 
+         * que mandamos para esta função
+         * 
+         * 
+         */
+        createUser: (state, action) => {
+            
+            return { 
+                ...state, //Mantemos o estado anterior
+                /**E aqui faremos as alterações desejadas */
+                user: {
+                    name: action.payload.name,
+                    email: action.payload.email,
+                    adress: null,
 
+                }
+             };
+
+        }
     }
 });
 
 /**
+ * Aqui exportamos as nossas actions para poder utilizar na aplicação
+ */
+export const { createUser } = userSlice.actions;
+
+/**
  * Agora podemos exportar o nosso reducer
  */
-
 export default userSlice.reducer;

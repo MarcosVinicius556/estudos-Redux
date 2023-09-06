@@ -16,8 +16,6 @@ export function Home() {
    */
   const { user } = useSelector((rootReducer) => rootReducer.user);
 
-  console.log(user);
-
   function handleDeleteAddress(){
     alert("Endereço deletado com sucesso!")
   }
@@ -41,18 +39,26 @@ export function Home() {
         <main className={styles.content}>
           <div className={styles.message}>
             <h1 className={styles.title}>
-              Olá Visitante, bem vindo!
+              { /**
+                 * Verificando dentro do reducer, se possui algum usuário informado, 
+                 * se houver mostra o nome, se não mostra um texto padrão 
+                 **/ }
+              Olá { user ? user.name : 'Visitante' }, bem vindo!
             </h1>
 
-            <span>Email: ....</span>
+            { user && (<span>Email: {user.email}</span>) }
 
 
-            <strong className={styles.addressLabel}>Endereço atual:</strong>
-            <div className={styles.address}>
-              <p>Rua centro, n 123</p>
-              
-              <button onClick={handleDeleteAddress}>Deletar endereço</button>
-            </div>
+            { user && user.adress && (
+              <>
+                <strong className={styles.addressLabel}>Endereço atual:</strong>
+                <div className={styles.address}>
+                  <p>{user.adress.location}, n {user.adress.number}</p>
+                  
+                  <button onClick={handleDeleteAddress}>Deletar endereço</button>
+                </div>
+              </>
+            ) }
 
           </div>
 

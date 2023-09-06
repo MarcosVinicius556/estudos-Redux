@@ -1,16 +1,50 @@
 import { useState } from 'react'; 
 import styles from './login.module.css'
 
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+
+/**
+ * Aqui utilizaremos o useDispatch,
+ * um hook que faz a função de chamar uma action
+ * funciona de forma parecida com o dispatch do useReducer
+ */
+import { useDispatch } from 'react-redux';
+import { createUser } from '../../redux/user/slice';
 
 export function Login() {
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
+
+  /**
+   * Declaramos o useDispatch para utilizar neste arquivo
+   */
+  const dispatch = useDispatch();
+
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+
+  const navigate = useNavigate();
 
   function handleLogin(e){
     e.preventDefault()
     
-    console.log(name, email)
+    /**
+     * Aqui estamos diparando uma action para o reducer do usuário
+     * 
+     * Dentro da action podemos passar um payload,
+     * que será os dados que queremos passar para
+     * a nossa state dentro do reducer
+     */
+
+    if(name === '' || email === '') {
+      alert('Todos os dados devem ser preenchidos');
+      return;
+    }
+
+    dispatch(createUser({
+      name: name,
+      email: email,
+    }));
+
+    navigate('/painel');
   }
 
   return (
