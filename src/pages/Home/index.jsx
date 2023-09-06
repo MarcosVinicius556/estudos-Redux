@@ -2,7 +2,21 @@ import styles from './home.module.css'
 import { Header } from '../../components/header'
 import { Link } from 'react-router-dom'
 
+/**
+ * importamos o useSelector aqui, pois ele é quem 
+ * vai acessar a nossa store, para chegar até
+ *  o reducer desejado
+ */
+import { useSelector } from 'react-redux'
+
 export function Home() {
+
+  /**
+   * Acessando o reducer do usuário, e extraindo os dados do usuário 
+   */
+  const { user } = useSelector((rootReducer) => rootReducer.user);
+
+  console.log(user);
 
   function handleDeleteAddress(){
     alert("Endereço deletado com sucesso!")
