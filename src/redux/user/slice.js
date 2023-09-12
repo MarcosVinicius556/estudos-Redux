@@ -34,6 +34,13 @@ export const userSlice = createSlice({
          * 
          */
         createUser: (state, action) => {
+            /**
+             * Criando validação dentro de um reducer
+             */
+            if(action.payload.name <= 4){
+                alert('PREENCHA UM NOME COM MAIS DE 4 LETRAS!')
+                return { ...state }
+            }
             
             return { 
                 ...state, //Mantemos o estado anterior
@@ -45,7 +52,19 @@ export const userSlice = createSlice({
 
                 }
              };
-
+        },
+        /* 
+         * Por ser uma função de logout, não é necessário
+         * pegar o action, já que não será enviado nada para cá
+         */
+        logoutUser: (state) => {
+            /**
+             * Zera o estado do usuário
+             */
+            return{
+                ...state, 
+                user: null,
+            }
         }
     }
 });
@@ -53,7 +72,7 @@ export const userSlice = createSlice({
 /**
  * Aqui exportamos as nossas actions para poder utilizar na aplicação
  */
-export const { createUser } = userSlice.actions;
+export const { createUser, logoutUser } = userSlice.actions;
 
 /**
  * Agora podemos exportar o nosso reducer

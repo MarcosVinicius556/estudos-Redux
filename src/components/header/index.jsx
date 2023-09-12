@@ -1,15 +1,22 @@
 import styles from './header.module.css'
 import { Link, useNavigate } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux';
+import { logoutUser } from '../../redux/user/slice';
 
 export function Header(){
+
+  //Consumindo o redux do usuário
+  const{ user } = useSelector((rootReducer) => rootReducer.user);
+  
   const navigate = useNavigate();
-  const user = null;
+  const dispatch = useDispatch();
 
   function handleLogin(){
     navigate("/")
   }
 
   function handleLogout(){
+    //Chamando o reducer que irá fazer o logout do usuário
     dispatch(logoutUser())
     navigate("/")
   }
