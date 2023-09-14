@@ -7,7 +7,8 @@ import  { createSlice } from '@reduxjs/toolkit';
  * Definimos um valor inicial para a nossa slice
  */
 const initialState = {
-    user: null
+    user: null,
+    users: []
 }
 
 /**
@@ -100,6 +101,16 @@ export const userSlice = createSlice({
                     address: null,
                 }
             }
+        },
+        fetchUsers: (state) => {
+            /**
+             * Não se deve fazer requisições neste ponto da aplicação, 
+             * não é recomendo e deve ser evitado ao máximo, pois por ser assíncrono
+             * devemos tratar isto de forma correta. Então para fugirmos
+             * disto vamos trabalhar com SideEffects (Efeitos colaterais), alguns populares
+             * são: Redux Saga, Redux Thunks, entre outros disponíveis no site do Redux
+             */
+            alert('Aqui');
         }
     }
 });
@@ -107,7 +118,7 @@ export const userSlice = createSlice({
 /**
  * Aqui exportamos as nossas actions para poder utilizar na aplicação
  */
-export const { createUser, logoutUser, addAddress, deleteAddress } = userSlice.actions;
+export const { createUser, logoutUser, addAddress, deleteAddress, fetchUsers } = userSlice.actions;
 
 /**
  * Agora podemos exportar o nosso reducer

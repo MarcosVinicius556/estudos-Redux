@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom'
  *  o reducer desejado
  */
 import { useSelector, useDispatch } from 'react-redux';
-import { deleteAddress } from '../../redux/user/slice';
+import { deleteAddress, fetchUsers } from '../../redux/user/slice';
 
 export function Home() {
 
@@ -22,6 +22,10 @@ export function Home() {
   function handleDeleteAddress(){
     dispatch(deleteAddress());
     alert("Endereço deletado com sucesso!")
+  }
+
+  function handleFetchUsers() {
+    dispatch(fetchUsers());
   }
 
   return (
@@ -63,6 +67,12 @@ export function Home() {
                 </div>
               </>
             ) }
+
+              <hr />
+              <br />
+              <h2>Lista de usuários</h2>
+              <button onClick={handleFetchUsers}>Buscar Usuários</button>
+              <br />
 
           </div>
 
