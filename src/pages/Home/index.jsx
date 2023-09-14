@@ -17,7 +17,7 @@ export function Home() {
   /**
    * Acessando o reducer do usuário, e extraindo os dados do usuário 
    */
-  const { user } = useSelector((rootReducer) => rootReducer.user);
+  const { user, users, loading } = useSelector((rootReducer) => rootReducer.user);
 
   function handleDeleteAddress(){
     dispatch(deleteAddress());
@@ -73,7 +73,12 @@ export function Home() {
               <h2>Lista de usuários</h2>
               <button onClick={handleFetchUsers}>Buscar Usuários</button>
               <br />
-
+              {loading && <strong>Carregando Usuários...</strong>}
+              {!loading && users.map((user) => (
+                <div key={user.id}>
+                  <p> ID: {user.id} | {user.name} </p>
+                </div>
+              ))}
           </div>
 
         </main>

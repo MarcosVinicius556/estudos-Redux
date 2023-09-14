@@ -8,7 +8,8 @@ import  { createSlice } from '@reduxjs/toolkit';
  */
 const initialState = {
     user: null,
-    users: []
+    users: [],
+    loading: false
 }
 
 /**
@@ -110,7 +111,22 @@ export const userSlice = createSlice({
              * disto vamos trabalhar com SideEffects (Efeitos colaterais), alguns populares
              * são: Redux Saga, Redux Thunks, entre outros disponíveis no site do Redux
              */
-            alert('Aqui');
+            state.loading = true
+        },
+        /**
+         * Irá receber os dados da requisição feita pelo saga caso ocorra tudo bem
+         */
+        fetchUsersSuccess: (state, action) => {
+            state.users = action.payload;
+            state.loading = false;
+
+        },
+        /**
+         * Irá receber os dados da requisição feita pelo saga caso ocorra algum erro
+         */
+        fetchUsersFailure: (state, action) => {
+            console.log(action.payload);
+            state.loading = false;
         }
     }
 });
@@ -118,7 +134,13 @@ export const userSlice = createSlice({
 /**
  * Aqui exportamos as nossas actions para poder utilizar na aplicação
  */
-export const { createUser, logoutUser, addAddress, deleteAddress, fetchUsers } = userSlice.actions;
+export const { createUser, 
+               logoutUser, 
+               addAddress, 
+               deleteAddress, 
+               fetchUsers,
+               fetchUsersSuccess,
+               fetchUsersFailure  } = userSlice.actions;
 
 /**
  * Agora podemos exportar o nosso reducer
