@@ -4,7 +4,7 @@ import { Header } from '../../components/header'
 import { Link } from 'react-router-dom'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { addAdress } from '../../redux/user/slice'
+import { addAddress, deleteAddress } from '../../redux/user/slice'
 
 export function Address() {
   //Para disparar os eventos
@@ -16,15 +16,22 @@ export function Address() {
   /**
    * Utiliza-se os "?" quando queremos utilizar um objeto, mas ele pode vir nulo
    */
-  const [addressName, setAddressName] = useState(user?.adress?.location ?? "")
-  const [addressNumber, setAddressNumber] = useState(user?.adress?.number ?? "")
+  const [addressName, setAddressName] = useState(user?.address?.location ?? "")
+  const [addressNumber, setAddressNumber] = useState(user?.address?.number ?? "")
 
   function handleRegisterAddress(){
-    dispatch(addAdress({
+    dispatch(addAddress({
       //Passando as propriedades através do payload
       location: addressName,
       number: addressNumber,
     }));
+  }
+
+  function handleDeleteAddress() {
+    dispatch(deleteAddress());
+    setAddressName('');
+    setAddressNumber('');
+    alert('Deletado com sucesso!');
   }
 
   return (
@@ -37,6 +44,13 @@ export function Address() {
             <Link to="/painel">
               Voltar para o painel
             </Link>
+            {/* Só renderiza se tiver um usuário logado, ou se tiver um endereço */}
+            {user && user?.adress && (
+              <button className={ styles.buttonDelete } onClick={handleDeleteAddress}>
+                Deletar endereço
+              </button>
+            )}
+            
           </div>
 
           <section className={styles.address}>

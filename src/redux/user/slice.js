@@ -48,7 +48,7 @@ export const userSlice = createSlice({
                 user: {
                     name: action.payload.name,
                     email: action.payload.email,
-                    adress: null,
+                    address: null,
 
                 }
              };
@@ -66,7 +66,7 @@ export const userSlice = createSlice({
                 user: null,
             }
         },
-        addAdress: (state, action) => {
+        addAddress: (state, action) => {
             /**
              * Verificando se está sendo enviado algo
              */
@@ -85,10 +85,19 @@ export const userSlice = createSlice({
                 ...state,
                 user:{
                     ...state.user, //Mantendo os dados do usuário
-                    adress: { //E alterando somente o endereço
+                    address: { //E alterando somente o endereço
                         location: action.payload.location,
                         number: action.payload.number
                     }
+                }
+            }
+        },
+        deleteAddress: (state) => {
+            return { 
+                ...state,
+                user: { 
+                    ...state.user,
+                    address: null,
                 }
             }
         }
@@ -98,7 +107,7 @@ export const userSlice = createSlice({
 /**
  * Aqui exportamos as nossas actions para poder utilizar na aplicação
  */
-export const { createUser, logoutUser, addAdress } = userSlice.actions;
+export const { createUser, logoutUser, addAddress, deleteAddress } = userSlice.actions;
 
 /**
  * Agora podemos exportar o nosso reducer

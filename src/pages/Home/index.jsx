@@ -7,9 +7,12 @@ import { Link } from 'react-router-dom'
  * vai acessar a nossa store, para chegar até
  *  o reducer desejado
  */
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux';
+import { deleteAddress } from '../../redux/user/slice';
 
 export function Home() {
+
+  const dispatch = useDispatch();
 
   /**
    * Acessando o reducer do usuário, e extraindo os dados do usuário 
@@ -17,6 +20,7 @@ export function Home() {
   const { user } = useSelector((rootReducer) => rootReducer.user);
 
   function handleDeleteAddress(){
+    dispatch(deleteAddress());
     alert("Endereço deletado com sucesso!")
   }
 
@@ -49,11 +53,11 @@ export function Home() {
             { user && (<span>Email: {user.email}</span>) }
 
 
-            { user && user.adress && (
+            { user && user.address && (
               <>
                 <strong className={styles.addressLabel}>Endereço atual:</strong>
                 <div className={styles.address}>
-                  <p>{user.adress.location}, n {user.adress.number}</p>
+                  <p>{user.address.location}, n {user.address.number}</p>
                   
                   <button onClick={handleDeleteAddress}>Deletar endereço</button>
                 </div>
