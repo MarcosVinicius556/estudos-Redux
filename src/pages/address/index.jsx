@@ -3,13 +3,28 @@ import styles from './address.module.css'
 import { Header } from '../../components/header'
 import { Link } from 'react-router-dom'
 
-export function Address() {
-  const [addressName, setAddressName] = useState("")
-  const [addressNumber, setAddressNumber] = useState("")
+import { useDispatch, useSelector } from 'react-redux'
+import { addAdress } from '../../redux/user/slice'
 
+export function Address() {
+  //Para disparar os eventos
+  const dispatch = useDispatch();
+  
+  //Consumindo os dados do userSlice
+  const{ user } = useSelector((rootReducer) => rootReducer.user);
+
+  /**
+   * Utiliza-se os "?" quando queremos utilizar um objeto, mas ele pode vir nulo
+   */
+  const [addressName, setAddressName] = useState(user?.adress?.location ?? "")
+  const [addressNumber, setAddressNumber] = useState(user?.adress?.number ?? "")
 
   function handleRegisterAddress(){
-    console.log(addressName, addressNumber)
+    dispatch(addAdress({
+      //Passando as propriedades através do payload
+      location: addressName,
+      number: addressNumber,
+    }));
   }
 
   return (

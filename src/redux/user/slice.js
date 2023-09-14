@@ -65,6 +65,32 @@ export const userSlice = createSlice({
                 ...state, 
                 user: null,
             }
+        },
+        addAdress: (state, action) => {
+            /**
+             * Verificando se está sendo enviado algo
+             */
+            if(action.payload.location === '' || action.payload.number === '') {
+                alert('Preencha todos os campos!');
+                return { ...state }
+            }
+
+            if(state.user === null) {
+                alert('É necessário fazer login para cadastrar um endereço!');
+                return { ...state }
+            }
+
+            alert('Dados atualizados!');
+            return{
+                ...state,
+                user:{
+                    ...state.user, //Mantendo os dados do usuário
+                    adress: { //E alterando somente o endereço
+                        location: action.payload.location,
+                        number: action.payload.number
+                    }
+                }
+            }
         }
     }
 });
@@ -72,7 +98,7 @@ export const userSlice = createSlice({
 /**
  * Aqui exportamos as nossas actions para poder utilizar na aplicação
  */
-export const { createUser, logoutUser } = userSlice.actions;
+export const { createUser, logoutUser, addAdress } = userSlice.actions;
 
 /**
  * Agora podemos exportar o nosso reducer
