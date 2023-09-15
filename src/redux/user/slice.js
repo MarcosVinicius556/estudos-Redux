@@ -127,6 +127,16 @@ export const userSlice = createSlice({
         fetchUsersFailure: (state, action) => {
             console.log(action.payload);
             state.loading = false;
+        },
+        fetchUserById: (state) => {
+            console.log('Chamou fetchUserById');
+        },
+        fetchUserByIdSucess: (state, action) => {
+            console.log(action.payload);
+            console.log('sucesso');
+        },
+        fetchUserByIdFailure: (state, action) => {
+            console.log('falha');
         }
     }
 });
@@ -140,7 +150,10 @@ export const { createUser,
                deleteAddress, 
                fetchUsers,
                fetchUsersSuccess,
-               fetchUsersFailure  } = userSlice.actions;
+               fetchUsersFailure,
+               fetchUserById,
+               fetchUserByIdSucess,
+               fetchUserByIdFailure  } = userSlice.actions;
 
 /**
  * Agora podemos exportar o nosso reducer

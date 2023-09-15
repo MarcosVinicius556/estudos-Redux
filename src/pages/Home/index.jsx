@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom'
  *  o reducer desejado
  */
 import { useSelector, useDispatch } from 'react-redux';
-import { deleteAddress, fetchUsers } from '../../redux/user/slice';
+import { deleteAddress, fetchUsers, fetchUserById } from '../../redux/user/slice';
 
 export function Home() {
 
@@ -26,6 +26,14 @@ export function Home() {
 
   function handleFetchUsers() {
     dispatch(fetchUsers());
+  }
+
+  /**
+   * Fazendo um dispatch passando uma variável por parâmetro para o saga
+   */
+  function handleFetchUserById() {
+    const userId = 5;
+    dispatch(fetchUserById(userId));
   }
 
   return (
@@ -72,6 +80,7 @@ export function Home() {
               <br />
               <h2>Lista de usuários</h2>
               <button onClick={handleFetchUsers}>Buscar Usuários</button>
+              <button onClick={handleFetchUserById}>Buscar Usuário com ID</button>
               <br />
               {loading && <strong>Carregando Usuários...</strong>}
               {!loading && users.map((user) => (
